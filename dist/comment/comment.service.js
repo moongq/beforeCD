@@ -72,12 +72,12 @@ let CommentService = class CommentService {
         return await this.commentRepository.find({});
     }
     async findCommentsByGameId(gameId) {
-        const result = await this.commentRepository.find({
-            where: {
-                balanceGameId: gameId,
-            },
-            relations: ["replies", "user", "user.profile", "replies.user", "replies.user.profile"],
-        });
+        const result = this.commentRepository
+            .createQueryBuilder("comments")
+            .leftJoinAndSelect("comments.replies", "replies")
+            .orderBy("comments.createdAt", "DESC")
+            .orderBy("replies.createdAt", "DESC")
+            .getMany();
         return result;
     }
     async remove(userId, commentId) {

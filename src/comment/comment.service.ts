@@ -88,12 +88,23 @@ export class CommentService {
   // reply까지 하고서 !
   // 삭제 처리한 댓글은 보이지 않도록 수정
   async findCommentsByGameId(gameId: string): Promise<Comment[]> {
-    const result = await this.commentRepository.find({
-      where: {
-        balanceGameId: gameId,
-      },
-      relations: ["replies", "user", "user.profile", "replies.user", "replies.user.profile"],
-    });
+    // const result = await this.commentRepository.find({
+    //   where: {
+    //     balanceGameId: gameId,
+    //   },
+    //   relations: ["replies", "user", "user.profile", "replies.user", "replies.user.profile"],
+    //   order: {
+    //     createdAt: "DESC",
+    //   },
+    // });
+
+    const result = this.commentRepository
+      .createQueryBuilder("comments")
+      .leftJoinAndSelect("comments.replies", "replies")
+      .orderBy("comments.createdAt", "DESC")
+      .orderBy("replies.createdAt", "DESC")
+      .getMany();
+
     return result;
   }
 
