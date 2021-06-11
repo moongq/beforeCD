@@ -7641,7 +7641,7 @@
         "affectsGlobalScope": false
       },
       "../src/comment/comment.service.ts": {
-        "version": "d0efc971f3c956d005f4f24040fec26516e1adc937840597e47003391c55b600",
+        "version": "8778198a96e38e7fe9969d05700b814d258709f531de042878a04cee5ded723a",
         "signature": "901d21a41c809ddec11728c3e9f3e83631d667c3f6a60b89f2c5570911f648c4",
         "affectsGlobalScope": false
       },

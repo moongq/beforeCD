@@ -101,6 +101,10 @@ export class CommentService {
     const result = this.commentRepository
       .createQueryBuilder("comments")
       .leftJoinAndSelect("comments.replies", "replies")
+      .leftJoinAndSelect("comments.user", "user")
+      .leftJoinAndSelect("user.profile", "profile")
+      .leftJoinAndSelect("replies.user", "replyUser")
+      .leftJoinAndSelect("replyUser.profile", "replyProfile")
       .orderBy("comments.createdAt", "DESC")
       .orderBy("replies.createdAt", "DESC")
       .getMany();
