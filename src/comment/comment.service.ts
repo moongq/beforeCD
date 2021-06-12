@@ -100,6 +100,7 @@ export class CommentService {
 
     const result = this.commentRepository
       .createQueryBuilder("comments")
+      .where({ balanceGameId: gameId })
       .leftJoinAndSelect("comments.replies", "replies")
       .leftJoinAndSelect("comments.user", "user")
       .leftJoinAndSelect("user.profile", "profile")
